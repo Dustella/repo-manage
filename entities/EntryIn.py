@@ -7,10 +7,10 @@ class EntriesIn(Model):
     # 一个用户可以创建多个条目
     # id 自增 1 而且是主键
     from entities.User import User
-    user = ForeignKeyField(User, backref='entries_in')
+    user = ForeignKeyField(User)
     time = DateTimeField()
     from entities.Item import Item
-    item = ForeignKeyField(Item, backref='entries_in')
+    item = ForeignKeyField(Item)
     amount = FloatField()
     quantity = IntegerField(default=1)
     note = TextField(null=True)
@@ -19,7 +19,7 @@ class EntriesIn(Model):
     class Meta:
         from entities.db import db
         database = db
-    
+
     # 一个创建条目的方法
     @classmethod
     def create_entry(cls, user, time, item, amount, quantity, note):
@@ -36,7 +36,7 @@ class EntriesIn(Model):
                 )
         except IntegrityError:
             raise ValueError("Entry already exists")
-    
+
     # 查询所有条目
     @classmethod
     def get_all_entries(cls):
