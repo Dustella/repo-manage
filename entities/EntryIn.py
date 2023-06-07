@@ -12,8 +12,8 @@ class EntriesIn(Model):
     from entities.Item import Item
     item = ForeignKeyField(Item, backref='entries_in')
     amount = FloatField()
-    quantity = IntegerField()
-    note = TextField()
+    quantity = IntegerField(default=1)
+    note = TextField(null=True)
     id = AutoField(primary_key=True)
 
     class Meta:

@@ -5,8 +5,8 @@ class Item(Model):
     # id 自增 1 而且是主键
     name = CharField()
     price = FloatField()
-    note = TextField()
-    supplier = CharField()
+    note = TextField(null=True)
+    supplier = CharField(null=True)
     id = AutoField(primary_key=True)
 
     class Meta:

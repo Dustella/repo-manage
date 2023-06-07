@@ -15,7 +15,7 @@ class Customer(Model):
 
     # 一个创建条目的方法
     @classmethod
-    def create_customer(cls, name, phone, address, note):
+    def create_customer(cls, name, phone, address, note=""):
         from entities.db import db
         try:
             with db.transaction():

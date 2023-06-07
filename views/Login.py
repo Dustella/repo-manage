@@ -4,28 +4,31 @@ from tkinter import ttk
 
 
 
+
 class LoginWindow():
     def __init__(self):
         self.init_login_window()
 
-    def authen(self,username,password):
-        username_text = username.get()
-        password_text = password.get()
+    def authen(self,):
+        username_text = self.username.get()
+        password_text = self.password.get()
         from entities.User import User
         try:
             user = User.authenticate(username_text, password_text)
-            return True
+            return user
         except ValueError as e:
             messagebox.showerror("错误", e)
             return False
         
         
     def login(self):
-            # if authen(username,password):
-        if True:
-            from views.EntryTable import init_data_table
+        from entities.User import User
+        res = self.authen()
+        if isinstance(res, User):
+        # if True:
+            from views.MainMenu import MenuWindow
             self.login_window.destroy()
-            init_data_table()
+            MenuWindow(res)
             
 
         else:

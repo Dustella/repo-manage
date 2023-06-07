@@ -5,18 +5,23 @@ from tkinter import messagebox
 class MenuWindow:
     from entities.User import User
     def __init__(self,user:User):
-        self.init_menu()
         self.user = user
+        self.init_menu()
 
     def open_entry_in_window(self):
+        
         pass
 
     def open_entry_out_window(self):
-        pass
+        if self.user.role == "超级管理员" or self.user.role == "销售员":
+            from views.EntryOutTable import EntryOutTable
+            EntryOutTable()
+        else:
+            messagebox.showerror("错误", "您没有权限进行此操作！")
 
     def open_item_table_window(self):
         
-        from views.EntryTable import init_data_table
+        from views.EntryInTable import init_data_table
         pass
 
     def open_user_table_window(self):
@@ -38,6 +43,11 @@ class MenuWindow:
         label1 = tk.Label(menu, text="欢迎您，" + self.user.username, **font_config)
         label1.pack()
 
+        label2 = tk.Label(menu, text="您的权限是：" + self.user.role, **font_config)
+        label2.pack()
+
+        label3 = tk.Label(menu, text="请选择您要进行的操作：", **font_config)
+        label3.pack()
         # add four buttons
         button1 = tk.Button(menu, text="录入", command=self.open_entry_in_window, **font_config)
         button1.pack()

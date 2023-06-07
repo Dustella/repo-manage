@@ -3,7 +3,7 @@ from peewee import *
 class User(Model):
     username = CharField(unique=True)
     password = CharField()
-    email = CharField(unique=True)
+    email = CharField()
     role = CharField(default="user")
 
     class Meta:
@@ -11,14 +11,15 @@ class User(Model):
         database = db
 
     @classmethod
-    def create_user(cls, username, password, email):
+    def create_user(cls, username, password, email,role):
         from entities.db import db
         try:
             with db.transaction():
                 cls.create(
                     username=username,
                     password=password,
-                    email=email
+                    email=email,
+                    role=role
                 )
         except IntegrityError:
             raise ValueError("User already exists")
@@ -31,4 +32,4 @@ class User(Model):
             return ValueError("User does not exist")
         if user.password != password:
             return ValueError("Incorrect password")
-        return True
+        return user
