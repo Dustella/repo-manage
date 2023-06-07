@@ -7,9 +7,10 @@ class EntriesIn(Model):
     # 一个用户可以创建多个条目
     # id 自增 1 而且是主键
     from entities.User import User
-    user = ForeignKeyField(User, backref='entries')
+    user = ForeignKeyField(User, backref='entries_in')
     time = DateTimeField()
-    name = CharField()
+    from entities.Item import Item
+    item = ForeignKeyField(Item, backref='entries_in')
     amount = FloatField()
     quantity = IntegerField()
     note = TextField()
@@ -21,14 +22,14 @@ class EntriesIn(Model):
     
     # 一个创建条目的方法
     @classmethod
-    def create_entry(cls, user, time, name, amount, quantity, note):
+    def create_entry(cls, user, time, item, amount, quantity, note):
         from entities.db import db
         try:
             with db.transaction():
                 cls.create(
                     user=user,
                     time=time,
-                    name=name,
+                    item=item,
                     amount=amount,
                     quantity=quantity,
                     note=note

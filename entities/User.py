@@ -4,6 +4,7 @@ class User(Model):
     username = CharField(unique=True)
     password = CharField()
     email = CharField(unique=True)
+    role = CharField(default="user")
 
     class Meta:
         from entities.db import db

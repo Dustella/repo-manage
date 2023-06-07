@@ -1,15 +1,18 @@
 from peewee import *
 
+
 class EntriesOut(Model):
     # 包含: id, 创建的用户， 时间，名字，金额，数量，备注
     # 一个用户可以创建多个条目
     # id 自增 1 而且是主键
+    from entities.Item import Item
     from entities.User import User
-    user = ForeignKeyField(User, backref='entries')
+    user = ForeignKeyField(User, backref='entries_out')
     time = DateTimeField()
-    name = CharField()
+    item = ForeignKeyField(Item, backref='entries_out')
     amount = FloatField()
     quantity = IntegerField()
+    customer = ForeignKeyField(User)
     note = TextField()
     id = AutoField(primary_key=True)
 
@@ -19,14 +22,14 @@ class EntriesOut(Model):
     
     # 一个创建条目的方法
     @classmethod
-    def create_entry(cls, user, time, name, amount, quantity, note):
+    def create_entry(cls, user, time, item, amount, quantity, note):
         from entities.db import db
         try:
             with db.transaction():
                 cls.create(
                     user=user,
                     time=time,
-                    name=name,
+                    item=item,
                     amount=amount,
                     quantity=quantity,
                     note=note
