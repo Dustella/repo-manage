@@ -5,10 +5,16 @@ db = SqliteDatabase('data.db')
 
 def add_test_data():
     # test add
+
     from entities.EntryIn import EntriesIn
     from entities.EntryOut import EntriesOut
 
     from entities.User import User
+    # if admin is found, no need to add test data
+    target = User.get_by_id(1)
+    if target.username == "1":
+        return
+
     User.create_user(username="1", password="1",
                      email="admin@localhost", role="超级管理员")
     User.create_user(username="user1", password="password",

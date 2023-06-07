@@ -10,26 +10,41 @@ class MenuWindow:
         self.init_menu()
 
     def open_entry_in_window(self):
+        if self.user.role == "超级管理员" or self.user.role == "采购员":
+            from views.EntryInTable import EntryInTable
+            EntryInTable()
+        else:
+            messagebox.showerror("错误", "您没有权限进行此操作！")
 
-        pass
 
     def open_entry_out_window(self):
         if self.user.role == "超级管理员" or self.user.role == "销售员":
-            from views.GeneticDataTable import GeneticDataTable
-            from entities.EntryOut import EntriesOut
-            GeneticDataTable(EntriesOut)
+            from views.EntryOutTable import EntryOutTable
+            EntryOutTable()
         else:
             messagebox.showerror("错误", "您没有权限进行此操作！")
 
     def open_item_table_window(self):
-
-        from views.EntryInTable import init_data_table
-        pass
+        if self.user.role == "超级管理员" or self.user.role == "采购员" or self.user.role == "销售员":
+            from views.ItemTable import ItemTable
+            ItemTable()
+        else:
+            messagebox.showerror("错误", "您没有权限进行此操作！")
 
     def open_user_table_window(self):
-        pass
+        if self.user.role == "超级管理员":
+            from views.UserTable import UserTable
+            UserTable()
+        else:
+            messagebox.showerror("错误", "您没有权限进行此操作！")
+
 
     def open_customer_manage_window(self):
+        if self.user.role == "超级管理员" or self.user.role == "销售员":
+            from views.CustomerTable import CustomerTable
+            CustomerTable()
+        else:
+            messagebox.showerror("错误", "您没有权限进行此操作！")
         pass
 
     def init_menu(self):

@@ -36,9 +36,6 @@ class EntryOutTable:
 
         from entities.EntryOut import EntriesOut
         data: List[EntriesOut] = EntriesOut.select()
-
-        print(data)
-
         for item in data:
             line = (item.user.username,
                     item.time,
@@ -46,12 +43,7 @@ class EntryOutTable:
                     item.amount,
                     item.quantity)
 
-            print(line)
             table.insert("", tk.END, text="的",
-                         values=(item.user.username,
-                                 item.time,
-                                 item.item.name,
-                                 item.amount,
-                                 item.quantity))
+                         values=line)
 
         table.pack()

@@ -5,8 +5,8 @@ class Customer(Model):
     # id 自增 1 而且是主键
     name = CharField()
     phone = CharField()
-    address = CharField()
-    note = TextField()
+    address = CharField(null=True)
+    note = TextField(null=True)
     id = AutoField(primary_key=True)
 
     class Meta:

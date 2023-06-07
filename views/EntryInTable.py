@@ -6,12 +6,9 @@ from entities.Item import Item
 from entities.User import User
 
 
-class EntryOutTable:
-    from entities.EntryOut import EntriesOut
-    data: List[EntriesOut] = []
+class EntryInTable:
 
     def __init__(self):
-
         self.init_data_table()
 
     def init_data_table(self):
@@ -34,9 +31,8 @@ class EntryOutTable:
         table.heading("4", text="数量", anchor=tk.CENTER)
         table.heading("5", text="金额", anchor=tk.CENTER)
 
-        from entities.EntryOut import EntriesOut
-        data: List[EntriesOut] = EntriesOut.select()
-        print(data)
+        from entities.EntryIn import EntriesIn
+        data: List[EntriesIn] = EntriesIn.select()
 
         for item in data:
             line = (item.user.username,
@@ -45,12 +41,7 @@ class EntryOutTable:
                     item.amount,
                     item.quantity)
 
-            print(line)
             table.insert("", tk.END, text="的",
-                         values=(item.user.username,
-                                 item.time,
-                                 item.item.name,
-                                 item.amount,
-                                 item.quantity))
+                         values=line)
 
         table.pack()
