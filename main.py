@@ -1,7 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
-from db import User, EntriesIn, EntriesOut, db
+
+from entities.EntryIn import EntriesIn
+from entities.EntryOut import EntriesOut
+from entities.User import User
+from entities.db import db
+
 
 db.connect()
 db.create_tables([User ,EntriesIn, EntriesOut])
