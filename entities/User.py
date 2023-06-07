@@ -3,7 +3,7 @@ from peewee import *
 class User(Model):
     username = CharField(unique=True)
     password = CharField()
-    email = CharField()
+    email = CharField(null=True)
     role = CharField(default="user")
 
     class Meta:

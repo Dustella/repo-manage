@@ -7,18 +7,8 @@ from entities.User import User
 
 
 class EntryOutTable:
-    from entities.EntryOut import EntriesOut
-    data: List[EntriesOut] = []
-
-    def __init__(self):
-
-        self.init_data_table()
-
-    def init_data_table(self):
-        data_window = tk.Tk()
-        data_window.title("数据表格")
-
-        table = ttk.Treeview(data_window)
+    def add_table(self):
+        table = ttk.Treeview(self.data_window)
         table["columns"] = ("1", "2", "3", "4", "5")
         table.column("#0", width=0, stretch=tk.NO)
         table.column("1", width=100, anchor=tk.CENTER)
@@ -47,3 +37,11 @@ class EntryOutTable:
                          values=line)
 
         table.pack()
+
+    
+    def __init__(self):
+        data_window = tk.Tk()
+        data_window.title("数据表格")
+        self.data_window = data_window
+        self.add_table()
+
