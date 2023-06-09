@@ -1,14 +1,29 @@
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import tkinter as tk
 from typing import List
-from entities.Item import Item
-
-from entities.User import User
-
 
 class EntryOutTable:
+
+    def select_item(self,event):
+        self.seleted= []
+
+        selected = self.table.focus()
+        item = self.table.item(selected,"text")
+        self.seleted.append(item)
+
+    def delete_item(self):
+        if len(self.seleted) == 0:
+            messagebox.showinfo("No selection")
+        else:
+            from entities.EntryOut import EntriesOut
+            EntriesOut.delete_by_id(int(self.seleted[0]))
+            self.table.pack_forget()
+            self.button.pack_forget()
+            self.add_table()
     def add_table(self):
+        self.seleted= []
         table = ttk.Treeview(self.data_window)
+        self.table = table
         table["columns"] = ("1", "2", "3", "4", "5")
         table.column("#0", width=0, stretch=tk.NO)
         table.column("1", width=100, anchor=tk.CENTER)
@@ -33,12 +48,16 @@ class EntryOutTable:
                     item.amount,
                     item.quantity)
 
-            table.insert("", tk.END, text="的",
+            table.insert("", tk.END, text=f"{item.id}",
                          values=line)
-
+        table.bind('<<TreeviewSelect>>',self.select_item)
         table.pack()
+        button = tk.Button( self.data_window,text="删除",command=self.delete_item)
+        button.pack()
+        self.button = button
 
-    
+
+
     def __init__(self):
         data_window = tk.Tk()
         data_window.title("数据表格")
